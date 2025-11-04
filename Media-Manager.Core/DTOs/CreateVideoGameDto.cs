@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using MediaManager.Core.Enums;
 
-namespace MediaManager.Core.Models;
+namespace MediaManager.Core.DTOs;
 
-public class VideoGame
+public class CreateVideoGameDto
 {
-    [Required]
-    public int Id { get; set; }
     [Required(ErrorMessage = "The game must have a title")]
     [MaxLength(100, ErrorMessage = "The max length of the title is 100 characters")]
     public string Title { get; set; } = string.Empty;
@@ -19,9 +17,4 @@ public class VideoGame
     [Required(ErrorMessage = "There must be at least 1 tag")]
     public ICollection<VideoGameTagEnum> Tags { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; }
-
-    // public Review GameReview { get; set; }
-    // public ICollection<DailyLog> DailyLogs { get; set; }
-
 }
