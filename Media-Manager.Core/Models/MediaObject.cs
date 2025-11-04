@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models;
 
 public class MediaObject
 {
-    [Required]
     public int Id { get; set; }
+    public MediaObjectTypeEnum Type { get; set; }
     public VideoGame? VideoGame { get; set; }
     // public Video? Video { get; set; }
     // public Book? Book { get; set; }
