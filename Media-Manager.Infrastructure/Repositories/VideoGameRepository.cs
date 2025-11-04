@@ -2,7 +2,6 @@ using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace MediaManager.Infrastructure.Repositories;
 
@@ -18,9 +17,12 @@ public class VideoGameRepository : IVideoGameRepository
     {
         game.CreatedAt = DateTime.UtcNow;
 
-        var mediaObject = new MediaObject();
-        mediaObject.VideoGame = game;
-        mediaObject.Id = game.Id;
+        var mediaObject = new MediaObject
+        {
+            Id = game.Id,
+            Type = Core.Enums.MediaObjectTypeEnum.VideoGame,
+            VideoGame = game
+        };
 
         _context.VideoGames.Add(game);
         _context.MediaObjects.Add(mediaObject);
@@ -36,8 +38,7 @@ public class VideoGameRepository : IVideoGameRepository
             return false;
         }
 
-        var mediaObject = await _context.MediaObjects.FindAsync(id);
-        _context.Remove(mediaObject);
+        _context.VideoGames.Remove(currentGame);
         await _context.SaveChangesAsync();
         return true;
     }
