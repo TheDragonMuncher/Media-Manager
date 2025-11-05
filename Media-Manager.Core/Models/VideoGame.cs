@@ -19,10 +19,10 @@ public class VideoGame
     public string Description { get; set; } = string.Empty;
 
     [Range(0, int.MaxValue, ErrorMessage = "The user's play time must be at least 0")]
-    public int UserPlayTime { get; set; } = 0;
+    public double UserPlayTime { get; set; } = 0;
 
     [Range(0, int.MaxValue, ErrorMessage = "The estimated play time must be at least 0")]
-    public int EstimatedPlayTime { get; set; } = 0;
+    public double EstimatedPlayTime { get; set; } = 0;
 
     [Required(ErrorMessage = "There must be at least 1 tag")]
     public ICollection<VideoGameTagEnum> Tags { get; set; }
