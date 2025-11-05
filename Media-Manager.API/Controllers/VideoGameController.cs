@@ -1,6 +1,7 @@
 using MediaManager.Core.DTOs;
 using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaManager.API.Controllers;
@@ -64,5 +65,60 @@ public class VideoGameController : ControllerBase
             new { id = createdVideoGame.Id },
             createdVideoGame
         );
+    }
+
+    // PUT: api/videoGames/{id}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateVideoGameDto updateVideoGameDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var videoGame = new VideoGame
+        {
+            Title = updateVideoGameDto.Title,
+            Description = updateVideoGameDto.Description,
+            EstimatedPlayTime = updateVideoGameDto.EstimatedPlayTime,
+            UserPlayTime = updateVideoGameDto.UserPlayTime,
+            Tags = updateVideoGameDto.Tags,
+            UpdatedAt = DateTime.UtcNow
+        };
+
+        var updatedVideoGame = await _repository.UpdateAsync(videoGame);
+        if (updatedVideoGame == null)
+        {
+            return NotFound(new { message = $"Video game with id: {id} not found" });
+        }
+
+        return Ok(updatedVideoGame);
+    }
+
+    // PATCH: api/videoGames/{id}
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchVideoGame(int id, [FromBody] JsonPatchDocument<VideoGame> patchDoc)
+    {
+        if (patchDoc == null)
+        {
+            return BadRequest(new { message = "Patch document is null" });
+        }
+
+        var videoGame = await _repository.GetByIdAsync(id);
+        if (videoGame == null)
+        {
+            return NotFound(new { message = $"Video game with id: {id} not found" });
+        }
+
+        patchDoc.ApplyTo(videoGame);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        videoGame.UpdatedAt = DateTime.UtcNow;
+        await _repository.UpdateAsync(videoGame);
+        return Ok(videoGame);
     }
 }
