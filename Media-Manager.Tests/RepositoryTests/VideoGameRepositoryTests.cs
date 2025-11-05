@@ -52,11 +52,13 @@ public class VideoGameRepositoryTests : IDisposable
         {
             new MediaObject
             {
-                Id = 0
+                Id = 0,
+                Type = Core.Enums.MediaObjectTypeEnum.VideoGame
             },
             new MediaObject
             {
-                Id = 1
+                Id = 1,
+                Type = Core.Enums.MediaObjectTypeEnum.VideoGame
             }
         };
 
@@ -102,9 +104,30 @@ public class VideoGameRepositoryTests : IDisposable
     }
 
     [Fact]
-    public void CreateAsync_ValidVideoGame_AddsToDatabase()
+    public async Task CreateAsync_ValidVideoGame_AddsToDatabase()
     {
+        // Arrange
+        var game = new VideoGame
+        {
+            Id = 2,
+            Title = "Minecraft",
+            Description = "Creeper, Awww man. ",
+            EstimatedPlayTime = double.MaxValue,
+            UserPlayTime = 2341.7,
+            MediaObjectId = 2
+        };
 
+        // Act
+        await _repository.CreateAsync(game);
+
+        var testGame = await _repository.GetByIdAsync(2);
+        var testMediaObject = _context.MediaObjects.Find(2);
+
+        // Assert
+        Assert.NotNull(testGame);
+        Assert.NotNull(testMediaObject);
+        Assert.Equal("Minecraft", testGame.Title);
+        Assert.Equal(2, testMediaObject.Id);
     }
 
     [Fact]
