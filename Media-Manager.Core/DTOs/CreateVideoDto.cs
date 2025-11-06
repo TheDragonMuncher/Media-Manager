@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using MediaManager.Core.Enums;
 
-namespace MediaManager.Core.Models
+
+namespace MediaManager.Core.DTOs;
+
+public class CreateVideoDto
 {
-    public class Video
-    {
         // Properties
 
         [Required]
@@ -31,14 +32,5 @@ namespace MediaManager.Core.Models
 
         [Required(ErrorMessage = "There must be at least 1 tag")]
         public ICollection<VideoTagEnum> Tags { get; set; } = new List<VideoTagEnum>();
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        public DateTime UpdatedAt { get; set; }
-
-        // Relations
-
-        public int MediaObjectId { get; set; }
-        public MediaObject MediaObject { get; set; }
-    }
+    
 }
