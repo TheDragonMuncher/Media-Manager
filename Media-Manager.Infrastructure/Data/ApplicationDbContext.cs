@@ -11,7 +11,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<MediaObject> MediaObjects;
     public DbSet<VideoGame> VideoGames;
-    // public DbSet<Video> Videos;
+    public DbSet<Video> Videos;
     // public DbSet<Book> Books;
     // public DbSet<Review> Reviews;
     // public DbSet<DailyLog> DailyLogs;
@@ -39,10 +39,46 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // modelBuilder.Entity<Video>(entity =>
-        // {
+        modelBuilder.Entity<Video>(entity =>
+        {
+            entity.HasKey(v => v.Id);
 
-        // });
+            entity.Property(v => v.Title)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(v => v.Description)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            entity.Property(v => v.UserWatchTime)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            entity.Property(v => v.VideoDuration)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            entity.Property(v => v.NumberOfEpisodes)
+                .HasDefaultValue(0);
+
+            entity.Property(v => v.CreatedAt)
+                .HasDefaultValueSql("getutcdate()");
+
+            entity.Property(v => v.UpdatedAt);
+
+            entity.HasOne(v => v.MediaObject)
+                .WithOne(mo => mo.VideoGame)
+                .HasForeignKey<VideoGame>(vg => vg.MediaObjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
+
+        });
+
+
+
 
         // modelBuilder.Entity<Book>(entity =>
         // {
