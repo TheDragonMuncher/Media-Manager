@@ -68,12 +68,9 @@ public class ApplicationDbContext : DbContext
             entity.Property(v => v.UpdatedAt);
 
             entity.HasOne(v => v.MediaObject)
-                .WithOne(mo => mo.VideoGame)
-                .HasForeignKey<VideoGame>(vg => vg.MediaObjectId)
+                .WithOne(mo => mo.Video)
+                .HasForeignKey<Video>(v => v.MediaObjectId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-
-
 
         });
 
