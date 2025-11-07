@@ -9,7 +9,7 @@ public class MediaObject
     public MediaObjectTypeEnum Type { get; set; }
     public VideoGame? VideoGame { get; set; }
     public Video? Video { get; set; }
-    // public Book? Book { get; set; }
+    public Book? Book { get; set; }
     // public Review? Review { get; set; }
     // public ICollection<DailyLog>? DailyLogs { get; set; }
 }

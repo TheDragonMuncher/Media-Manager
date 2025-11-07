@@ -12,7 +12,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<MediaObject> MediaObjects;
     public DbSet<VideoGame> VideoGames;
     public DbSet<Video> Videos;
-    // public DbSet<Book> Books;
+    public DbSet<Book> Books;
     // public DbSet<Review> Reviews;
     // public DbSet<DailyLog> DailyLogs;
 
@@ -77,9 +77,22 @@ public class ApplicationDbContext : DbContext
 
 
 
-        // modelBuilder.Entity<Book>(entity =>
-        // {
-
-        // });
+        modelBuilder.Entity<Book>(entity =>
+        {
+            entity.HasKey(b => b.Id);
+            entity.Property(b => b.AuthorName).IsRequired().HasMaxLength(100);
+            entity.Property(b => b.Title).IsRequired().HasMaxLength(100);
+            entity.Property(b => b.Summary).IsRequired().HasMaxLength(250);
+            entity.Property(b => b.Genre).IsRequired();
+            entity.Property(b => b.ISBN).IsRequired();
+            entity.Property(b => b.Genre).IsRequired();
+            entity.Property(b => b.NumberOfPages).IsRequired().HasDefaultValue(1);
+            entity.Property(b => b.PublicationYear);
+            entity.Property(b => b.CoverImageURL);
+            entity.HasOne(v => v.MediaObject)
+                 .WithOne(mo => mo.Book)
+                 .HasForeignKey<Book>(b => b.MediaObjectId)
+                 .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }

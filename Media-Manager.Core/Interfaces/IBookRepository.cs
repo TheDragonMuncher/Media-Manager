@@ -1,7 +1,6 @@
 using System;
-using Media_Manager.Core.Models;
 
-namespace Media_Manager.Core.Interfaces;
+namespace MediaManager.Core.Models;
 
 public interface IBookRepository
 {
