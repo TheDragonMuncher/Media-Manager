@@ -16,5 +16,4 @@ public class CreateVideoGameDto
     public int EstimatedPlayTime { get; set; } = 0;
     [Required(ErrorMessage = "There must be at least 1 tag")]
     public ICollection<VideoGameTagEnum> Tags { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

@@ -1,12 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using MediaManager.Core.Models;
 
-namespace MediaManager.Core.Models;
+namespace Media_Manager.Core.DTOs;
 
-public class Book
+public class UpdateBookDto
 {
-    public int Id { get; set; }
     [Required(ErrorMessage = "The Book Must have an author")]
     [MaxLength(100, ErrorMessage = "Character amount exceeds the maximum amount")]
     public string AuthorName { get; set; } = string.Empty;
@@ -19,18 +17,9 @@ public class Book
     [Required]
     public string Genre { get; set; } = string.Empty;
     [Required]
-    public string ISBN { get; set; } = string.Empty;
-    [Required]
     [Range(1, int.MaxValue, ErrorMessage = "The Book Must have a minimum of atleast 1 page")]
     public int NumberOfPages { get; set; }
     [Required]
     public int PublicationYear { get; set; }
-    public string CoverImageURL { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; }
-
-    //Relations
-    public int MediaObjectId { get; set; }
-    public MediaObject MediaObject { get; set; }
-
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

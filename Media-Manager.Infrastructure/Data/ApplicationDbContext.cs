@@ -11,8 +11,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<MediaObject> MediaObjects;
     public DbSet<VideoGame> VideoGames;
-    // public DbSet<Video> Videos;
-    // public DbSet<Book> Books;
+    public DbSet<Video> Videos;
+    public DbSet<Book> Books;
     // public DbSet<Review> Reviews;
     // public DbSet<DailyLog> DailyLogs;
 
@@ -39,14 +39,60 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // modelBuilder.Entity<Video>(entity =>
-        // {
+        modelBuilder.Entity<Video>(entity =>
+        {
+            entity.HasKey(v => v.Id);
 
-        // });
+            entity.Property(v => v.Title)
+                .IsRequired()
+                .HasMaxLength(100);
 
-        // modelBuilder.Entity<Book>(entity =>
-        // {
+            entity.Property(v => v.Description)
+                .IsRequired()
+                .HasMaxLength(500);
 
-        // });
+            entity.Property(v => v.UserWatchTime)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            entity.Property(v => v.VideoDuration)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            entity.Property(v => v.NumberOfEpisodes)
+                .HasDefaultValue(0);
+
+            entity.Property(v => v.CreatedAt)
+                .HasDefaultValueSql("getutcdate()");
+
+            entity.Property(v => v.UpdatedAt);
+
+            entity.HasOne(v => v.MediaObject)
+                .WithOne(mo => mo.Video)
+                .HasForeignKey<Video>(v => v.MediaObjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+        });
+
+
+
+
+        modelBuilder.Entity<Book>(entity =>
+        {
+            entity.HasKey(b => b.Id);
+            entity.Property(b => b.AuthorName).IsRequired().HasMaxLength(100);
+            entity.Property(b => b.Title).IsRequired().HasMaxLength(100);
+            entity.Property(b => b.Summary).IsRequired().HasMaxLength(250);
+            entity.Property(b => b.Genre).IsRequired();
+            entity.Property(b => b.ISBN).IsRequired();
+            entity.Property(b => b.Genre).IsRequired();
+            entity.Property(b => b.NumberOfPages).IsRequired().HasDefaultValue(1);
+            entity.Property(b => b.PublicationYear);
+            entity.Property(b => b.CoverImageURL);
+            entity.HasOne(v => v.MediaObject)
+                 .WithOne(mo => mo.Book)
+                 .HasForeignKey<Book>(b => b.MediaObjectId)
+                 .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }

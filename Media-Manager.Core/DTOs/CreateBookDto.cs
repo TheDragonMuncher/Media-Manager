@@ -1,12 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using MediaManager.Core.Models;
 
-namespace MediaManager.Core.Models;
+namespace Media_Manager.Core.DTOs;
 
-public class Book
+public class CreateBookDto
 {
-    public int Id { get; set; }
     [Required(ErrorMessage = "The Book Must have an author")]
     [MaxLength(100, ErrorMessage = "Character amount exceeds the maximum amount")]
     public string AuthorName { get; set; } = string.Empty;
@@ -26,11 +24,4 @@ public class Book
     [Required]
     public int PublicationYear { get; set; }
     public string CoverImageURL { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; }
-
-    //Relations
-    public int MediaObjectId { get; set; }
-    public MediaObject MediaObject { get; set; }
-
 }
