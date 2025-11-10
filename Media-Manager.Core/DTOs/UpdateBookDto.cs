@@ -21,5 +21,6 @@ public class UpdateBookDto
     public int NumberOfPages { get; set; }
     [Required]
     public int PublicationYear { get; set; }
+    public string CoverImageURL { get; set; } = string.Empty;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }
