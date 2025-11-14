@@ -14,17 +14,41 @@ public class ApplicationDbContext : DbContext
     public DbSet<MediaObject> MediaObjects {get; set;}
     public DbSet<VideoGame> VideoGames {get; set;}
     public DbSet<Video> Videos {get; set;}
-    public DbSet<Book> Books {get; set;}
+    public DbSet<Book> Books { get; set; }
     // public DbSet<Review> Reviews {get; set;}
     // public DbSet<DailyLog> DailyLogs {get; set;}
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+            entity.Property(u => u.Email).IsRequired();
+            entity.Property(u => u.UserName).IsRequired();
+            entity.Property(u => u.PasswordHash).IsRequired();
+            entity.Property(u => u.NormalizedEmail).IsRequired();
+            entity.Property(u => u.NormalizedUserName).IsRequired();
+            entity.Property(u => u.FirstName).IsRequired();
+            entity.Property(u => u.LastName).IsRequired();
+            entity.Property(u => u.PhoneNumber).IsRequired();
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.Property(r => r.Description).IsRequired();
+        });
+
         modelBuilder.Entity<MediaObject>(entity =>
         {
             entity.HasKey(mo => new { mo.Id, mo.Type });
+
+            entity.HasOne(mo => mo.User)
+                .WithMany(u => u.MediaObjects)
+                .HasForeignKey(mo => mo.UserId);
         });
 
         modelBuilder.Entity<VideoGame>(entity =>
@@ -44,29 +68,11 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Video>(entity =>
         {
             entity.HasKey(v => v.Id);
-
-            entity.Property(v => v.Title)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.Property(v => v.Description)
-                .IsRequired()
-                .HasMaxLength(500);
-
-            entity.Property(v => v.UserWatchTime)
-                .IsRequired()
-                .HasDefaultValue(0);
-
-            entity.Property(v => v.VideoDuration)
-                .IsRequired()
-                .HasDefaultValue(0);
-
-            entity.Property(v => v.NumberOfEpisodes)
-                .HasDefaultValue(0);
-
-            entity.Property(v => v.CreatedAt);
-
-            entity.Property(v => v.UpdatedAt);
+            entity.Property(v => v.Title).IsRequired().HasMaxLength(100);
+            entity.Property(v => v.Description).IsRequired().HasMaxLength(500);
+            entity.Property(v => v.UserWatchTime).IsRequired().HasDefaultValue(0);
+            entity.Property(v => v.VideoDuration).IsRequired().HasDefaultValue(0);
+            entity.Property(v => v.NumberOfEpisodes).HasDefaultValue(0);
 
             entity.HasOne(v => v.MediaObject)
                 .WithOne(mo => mo.Video)
@@ -74,9 +80,6 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
 
         });
-
-
-
 
         modelBuilder.Entity<Book>(entity =>
         {
@@ -88,8 +91,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(b => b.ISBN).IsRequired();
             entity.Property(b => b.Genre).IsRequired();
             entity.Property(b => b.NumberOfPages).IsRequired().HasDefaultValue(1);
-            entity.Property(b => b.PublicationYear);
-            entity.Property(b => b.CoverImageURL);
+
             entity.HasOne(v => v.MediaObject)
                  .WithOne(mo => mo.Book)
                  .HasForeignKey<Book>(b => b.MediaObjectId)

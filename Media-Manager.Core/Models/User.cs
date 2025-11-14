@@ -11,5 +11,5 @@ public class User : IdentityUser
     public string? LastName { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastLogIn { get; set; }
-    public ICollection<MediaObject>? mediaObjects { get; set; }
+    public ICollection<MediaObject>? MediaObjects { get; set; }
 }
