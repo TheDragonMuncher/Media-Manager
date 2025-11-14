@@ -64,8 +64,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(v => v.NumberOfEpisodes)
                 .HasDefaultValue(0);
 
-            entity.Property(v => v.CreatedAt)
-                .HasDefaultValueSql("getutcdate()");
+            entity.Property(v => v.CreatedAt);
 
             entity.Property(v => v.UpdatedAt);
 
