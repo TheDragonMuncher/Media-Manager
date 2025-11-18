@@ -1,4 +1,6 @@
 using System.Data.Common;
+using Media_Manager.Core.Models;
+using Media_Manager.Infrastructure.Persistence;
 using MediaManager.Core.Models;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +17,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<VideoGame> VideoGames {get; set;}
     public DbSet<Video> Videos {get; set;}
     public DbSet<Book> Books { get; set; }
-    // public DbSet<Review> Reviews {get; set;}
+    public DbSet<Review> Reviews { get; set; }
     // public DbSet<DailyLog> DailyLogs {get; set;}
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
@@ -81,21 +83,7 @@ public class ApplicationDbContext : DbContext
 
         });
 
-        modelBuilder.Entity<Book>(entity =>
-        {
-            entity.HasKey(b => b.Id);
-            entity.Property(b => b.AuthorName).IsRequired().HasMaxLength(100);
-            entity.Property(b => b.Title).IsRequired().HasMaxLength(100);
-            entity.Property(b => b.Summary).IsRequired().HasMaxLength(250);
-            entity.Property(b => b.Genre).IsRequired();
-            entity.Property(b => b.ISBN).IsRequired();
-            entity.Property(b => b.Genre).IsRequired();
-            entity.Property(b => b.NumberOfPages).IsRequired().HasDefaultValue(1);
-
-            entity.HasOne(v => v.MediaObject)
-                 .WithOne(mo => mo.Book)
-                 .HasForeignKey<Book>(b => b.MediaObjectId)
-                 .OnDelete(DeleteBehavior.Cascade);
-        });
+        new BookConfiguration().Configure(modelBuilder.Entity<Book>());
+        new ReviewConfiguration().Configure(modelBuilder.Entity<Review>());
     }
 }

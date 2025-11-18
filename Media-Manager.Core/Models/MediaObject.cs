@@ -1,3 +1,4 @@
+using Media_Manager.Core.Models;
 using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models;
@@ -9,7 +10,7 @@ public class MediaObject
     public VideoGame? VideoGame { get; set; }
     public Video? Video { get; set; }
     public Book? Book { get; set; }
-    // public Review? Review { get; set; }
+    public Review? Review { get; set; }
     // public ICollection<DailyLog>? DailyLogs { get; set; }
     public required User User { get; set; }
     public required int UserId { get; set; }
