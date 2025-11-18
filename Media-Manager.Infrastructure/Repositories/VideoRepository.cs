@@ -22,15 +22,15 @@ public class VideoRepository : IVideoRepository
     {
         video.CreatedAt = DateTime.UtcNow;
 
-        var mediaObject = new MediaObject
-        {
-            Id = video.Id,
-            Type = Core.Enums.MediaObjectTypeEnum.Video,
-            Video = video
-        };
+        // var mediaObject = new MediaObject
+        // {
+        //     Id = video.Id,
+        //     Type = Core.Enums.MediaObjectTypeEnum.Video,
+        //     Video = video
+        // };
 
-        _context.Videos.Add(video);
-        _context.MediaObjects.Add(mediaObject);
+        // _context.Videos.Add(video);
+        // _context.MediaObjects.Add(mediaObject);
         await _context.SaveChangesAsync();
         return video;
 

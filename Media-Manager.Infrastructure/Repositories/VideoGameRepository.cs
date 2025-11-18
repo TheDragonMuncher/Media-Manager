@@ -17,15 +17,15 @@ public class VideoGameRepository : IVideoGameRepository
     {
         game.CreatedAt = DateTime.UtcNow;
 
-        var mediaObject = new MediaObject
-        {
-            Id = game.Id,
-            Type = Core.Enums.MediaObjectTypeEnum.VideoGame,
-            VideoGame = game
-        };
+        // var mediaObject = new MediaObject
+        // {
+        //     Id = game.Id,
+        //     Type = Core.Enums.MediaObjectTypeEnum.VideoGame,
+        //     VideoGame = game
+        // };
 
-        _context.VideoGames.Add(game);
-        _context.MediaObjects.Add(mediaObject);
+        // _context.VideoGames.Add(game);
+        // _context.MediaObjects.Add(mediaObject);
         await _context.SaveChangesAsync();
         return game;
     }
