@@ -20,15 +20,15 @@ public class BookRepository : IBookRepository
     {
         book.CreatedAt = DateTime.UtcNow;
 
-        var MediaObject = new MediaObject
-        {
-            Id = book.Id,
-            Type = Core.Enums.MediaObjectTypeEnum.Book,
-            Book = book
-        };
+        // var MediaObject = new MediaObject
+        // {
+        //     Id = book.Id,
+        //     Type = Core.Enums.MediaObjectTypeEnum.Book,
+        //     Book = book
+        // };
 
-        _context.Books.Add(book);
-        _context.MediaObjects.Add(MediaObject);
+        // _context.Books.Add(book);
+        // _context.MediaObjects.Add(MediaObject);
         await _context.SaveChangesAsync();
         return book;
     }
