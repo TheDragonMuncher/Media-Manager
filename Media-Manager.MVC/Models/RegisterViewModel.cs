@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Media_Manager.MVC.Models;
+namespace MediaManager.MVC.Models;
 
 public class RegisterViewModel
 { 

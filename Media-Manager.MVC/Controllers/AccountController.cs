@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Media_Manager.MVC.Controllers
+namespace MediaManager.MVC.Controllers
 {
     public class AccountController : Controller
     {

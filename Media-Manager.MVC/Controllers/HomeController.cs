@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Media_Manager.MVC.Models;
+using MediaManager.MVC.Models;
 
-namespace Media_Manager.MVC.Controllers;
+namespace MediaManager.MVC.Controllers;
 
 public class HomeController : Controller
 {

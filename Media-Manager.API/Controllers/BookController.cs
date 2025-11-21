@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Media_Manager.API.Controllers
+namespace MediaManager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

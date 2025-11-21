@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Media_Manager.Core.DTOs;
+namespace MediaManager.Core.DTOs;
 
 public class CreateBookDto
 {

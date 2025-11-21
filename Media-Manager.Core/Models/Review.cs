@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using MediaManager.Core.Models;
 
-namespace Media_Manager.Core.Models;
+namespace MediaManager.Core.Models;
 
 public class Review
 {

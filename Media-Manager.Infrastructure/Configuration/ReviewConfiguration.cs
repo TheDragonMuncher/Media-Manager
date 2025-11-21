@@ -1,9 +1,9 @@
 using System;
-using Media_Manager.Core.Models;
+using MediaManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Media_Manager.Infrastructure.Persistence;
+namespace MediaManager.Infrastructure.Configuration;
 
 public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 {

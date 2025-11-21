@@ -1,4 +1,4 @@
-﻿namespace Media_Manager.Tests;
+﻿namespace MediaManager.Tests;
 
 public class UnitTest1
 {

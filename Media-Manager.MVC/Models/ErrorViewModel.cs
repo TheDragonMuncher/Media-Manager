@@ -1,4 +1,4 @@
-namespace Media_Manager.MVC.Models;
+namespace MediaManager.MVC.Models;
 
 public class ErrorViewModel
 {

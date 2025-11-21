@@ -3,7 +3,7 @@ using MediaManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Media_Manager.Infrastructure.Persistence;
+namespace MediaManager.Infrastructure.Configuration;
 
 public class BookConfiguration : IEntityTypeConfiguration<Book>
 {
