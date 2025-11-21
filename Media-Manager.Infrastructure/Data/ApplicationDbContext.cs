@@ -1,13 +1,11 @@
-using System.Data.Common;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Configuration;
-using MediaManager.Core.Models;
-using Microsoft.CodeAnalysis.Operations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaManager.Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<User, Role, string> 
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -18,7 +16,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Video> Videos {get; set;}
     public DbSet<Book> Books { get; set; }
     public DbSet<Review> Reviews { get; set; }
-    // public DbSet<DailyLog> DailyLogs {get; set;}
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
 

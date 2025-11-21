@@ -25,7 +25,7 @@ public class VideoGame
     public double EstimatedPlayTime { get; set; } = 0;
 
     [Required(ErrorMessage = "There must be at least 1 tag")]
-    public ICollection<VideoGameTagEnum> Tags { get; set; }
+    public ICollection<VideoGameTagEnum>? Tags { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
@@ -35,6 +35,6 @@ public class VideoGame
     // Relations
 
     public int MediaObjectId { get; set; }
-    public MediaObject MediaObject { get; set; }
+    public MediaObject? MediaObject { get; set; }
 
 }
