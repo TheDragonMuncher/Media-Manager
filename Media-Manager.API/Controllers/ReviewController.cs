@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MediaManager.API.Controllers
+namespace Media_Manager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class ReviewController : ControllerBase
     {
-      
+        
     }
 }

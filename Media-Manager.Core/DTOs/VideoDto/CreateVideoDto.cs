@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 using MediaManager.Core.Enums;
 
 
-namespace MediaManager.Core.DTOs;
+namespace MediaManager.Core.DTOs.VideoDto;
 
-public class UpdateVideoDto
+public class CreateVideoDto
 {
         // Properties
 
